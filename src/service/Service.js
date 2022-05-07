@@ -113,10 +113,20 @@ class Service {
   async findOneAndUpdate(query, payload) {
     try {
       console.log("_____________findOneAndUpdate SERVICE____________");
-      var response = await this.model.findOneAndUpdate(query, payload, {
+      const finalCarState = (payload.carState.carState == "true");
+      const data = {
+        carState: finalCarState
+      }
+      var item = await this.model.findOneAndUpdate(query, data, {
         new: true,
       });
-      console.log(response);
+      if(!_.isEmpty(item)){
+        var response = responseCodes['06'];
+        response.body.data = item;
+        return response;
+      }
+        var response = responseCodes['10'];
+      console.log("Response:",response);
       return response;
     } catch (error) {
       console.log("error", error);

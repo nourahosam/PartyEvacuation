@@ -54,8 +54,9 @@ class Controller {
       console.log(
         "_____________________UPDATE METHOD CONTROLLER _________________________"
       );
+      console.log("EmpID", req.body.employeeId)
       const query = {
-        _id: req.body._id,
+        employeeId: req.body.employeeId,
       };
       response = await this.service.findOneAndUpdate(query, req.body);
       console.log("Response: ", response);
